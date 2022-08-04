@@ -1,5 +1,25 @@
+from datetime import datetime, timedelta
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator
 from django.db import models
+
+
+def check_birth_date(value: datetime):
+    """Проверка, что пользователь старше 9 лет."""
+    date_birthday = value.date()
+    date_min_birthday = (datetime.today() - timedelta(days=365.25 * 9)).date()
+    if date_birthday > date_min_birthday:
+        raise ValidationError(f'Your age({date_birthday}) is too young.')
+
+
+# def user_age(value: datetime):
+#     """Вычисляем возраст пользователя"""
+#     date_birthday = value.date()
+#     date_today = datetime.today()
+#     user_age_day = (date_today - date_birthday).days
+#     user_age_year = int(user_age_day / 365.25)
+#     return user_age_year
 
 
 class Location(models.Model):
@@ -28,7 +48,9 @@ class User(AbstractUser):
 
     locations = models.ManyToManyField(Location, blank=True)
     role = models.CharField(max_length=9, choices=ROLES, default=USER)
-    age = models.PositiveSmallIntegerField(null=True, blank=True)
+    # age = models.PositiveSmallIntegerField(null=True, blank=True)
+    birth_date = models.DateTimeField(validators=[check_birth_date])
+    # email = models.EmailField(unique=True, validators=[EmailValidator], null=True)
 
     class Meta:
         verbose_name = 'Пользователь'

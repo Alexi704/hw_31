@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinLengthValidator, MinValueValidator
 from django.db import models
 from users.models import User
 
@@ -18,10 +18,10 @@ class Category(models.Model):
 
 
 class Ad(models.Model):
-    name = models.CharField(max_length=100, null=True, blank=True)
+    name = models.CharField(max_length=200, validators=[MinLengthValidator(10)])
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    price = models.PositiveIntegerField()
-    description = models.TextField(max_length=2000, null=True, blank=True)
+    price = models.PositiveIntegerField(validators=[MinValueValidator(0)])
+    description = models.TextField(max_length=2000)
     is_published = models.BooleanField(default=False, blank=True)
     image = models.ImageField(upload_to='ads/', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
