@@ -26,7 +26,7 @@ class User(AbstractUser):
         (ADMIN, ADMIN),
     ]
 
-    locations = models.ManyToManyField(Location, null=True, blank=True)
+    locations = models.ManyToManyField(Location, blank=True)
     role = models.CharField(max_length=9, choices=ROLES, default=USER)
     age = models.PositiveSmallIntegerField(null=True, blank=True)
 
