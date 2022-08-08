@@ -1,13 +1,11 @@
-from django.core.validators import RegexValidator, MinLengthValidator, MinValueValidator
+from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
 from users.models import User
 
 
 class Category(models.Model):
-    regex_validator_slug = r'^[a-zA-Z0-9]{5,10}\Z$'
-
     name = models.CharField(max_length=200)
-    slug = models.CharField(unique=True, max_length=10, validators=[RegexValidator(regex_validator_slug)])
+    slug = models.CharField(max_length=10, unique=True, validators=[MinLengthValidator(5)])
 
     class Meta:
         verbose_name = 'Категория'
@@ -20,10 +18,10 @@ class Category(models.Model):
 class Ad(models.Model):
     name = models.CharField(max_length=200, validators=[MinLengthValidator(10)])
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    price = models.PositiveIntegerField(validators=[MinValueValidator(0)])
-    description = models.TextField(max_length=2000)
+    price = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0)])
+    description = models.TextField(max_length=2000, blank=True)
     is_published = models.BooleanField(default=False, blank=True)
-    image = models.ImageField(upload_to='ads/', null=True, blank=True)
+    image = models.ImageField(upload_to='logos/', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     class Meta:
