@@ -1,7 +1,7 @@
 from ads.permissions import AdEditPermission
 from ads.serializers import AdSerializer, CategorySerializer, AdCreateSerializer, AdUpdateSerializer, \
     AdDeleteSerializer, CategoryDetailSerializer, CategoryCreateSerializer, CategoryUpdateSerializer, \
-    CategoryDeleteSerializer
+    CategoryDeleteSerializer, AdDetailSerializer
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
@@ -86,7 +86,7 @@ class AdListView(ListAPIView):
 class AdDetailView(RetrieveAPIView):
     """Получение объявления по id."""
     queryset = Ad.objects.all()
-    serializer_class = AdSerializer
+    serializer_class = AdDetailSerializer
     permission_classes = [IsAuthenticated]
 
 

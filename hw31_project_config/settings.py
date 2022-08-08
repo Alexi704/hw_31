@@ -58,7 +58,7 @@ ROOT_URLCONF = 'hw31_project_config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,7 +75,6 @@ WSGI_APPLICATION = 'hw31_project_config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -108,7 +107,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'ru'
-TIME_ZONE = 'UTC'
+
+TIME_ZONE = 'Asia/Tomsk'
+# TIME_ZONE = 'UTC'
+# прописываем таймзону:
+# список всех допустимых таймзон тут:
+# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
 USE_I18N = True
 USE_TZ = True
 
@@ -141,6 +146,6 @@ AUTH_USER_MODEL = 'users.User'
 
 # устанавливаем нужное нам время действия токенов
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=20),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
