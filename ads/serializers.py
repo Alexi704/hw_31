@@ -43,7 +43,6 @@ class AdDetailSerializer(serializers.ModelSerializer):
         slug_field='first_name',
         read_only=True,
     )
-
     class Meta:
         model = Ad
         fields = '__all__'
