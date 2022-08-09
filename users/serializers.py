@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         exclude = ['password']
 
-# некорректно хешируются пароли
+# некорректно хешируются пароли, нет реализации добавления локаций через post-запрос
 # class UserCreateSerializer(serializers.ModelSerializer):
 #     id = serializers.IntegerField(required=False)
 #     locations = serializers.SlugRelatedField(
