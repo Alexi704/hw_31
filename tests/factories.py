@@ -19,7 +19,6 @@ class UserFactory(factory.django.DjangoModelFactory):
     email = factory.Faker('email')
     # birth_date = factory.Faker('date')
     birth_date = '2004-05-12'
-    is_staff = True
 
 
 class AdFactory(factory.django.DjangoModelFactory):

@@ -4,7 +4,7 @@ from tests.factories import AdFactory
 
 @pytest.mark.django_db
 def test_ads_list(client):
-    ads_factory = AdFactory.create_batch(5)
+    ads_factory = AdFactory.create_batch(1)
 
     response = client.get('/ad/')
 
@@ -14,18 +14,19 @@ def test_ads_list(client):
             {
                 'id': ad.id,
                 'name': ad.name,
-                'author_id': ad.author_id,
-                'author': ad.author,
+                'author': ad.author_id,
                 'price': ad.price,
                 'description': ad.description,
                 'is_published': ad.is_published,
-                'category_id': ad.category_id,
+                'category': ad.category_id,
                 'image': ad.image.url if ad.image else None,
             }
         )
     expected_response = {
-        'count': 5,
-        'results': ads,
+        "results": ads,
+        "next": None,
+        "previous": None,
+        "count": 1,
     }
 
     assert response.status_code == 200
